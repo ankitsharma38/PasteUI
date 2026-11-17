@@ -19,7 +19,7 @@ export default function Footer() {
         </div>
         <nav aria-label="Footer" className="flex flex-wrap items-center gap-6 text-xs font-medium">
           <Link href="/components" className="transition-colors hover:text-ink">
-            Components
+            Library
           </Link>
           <Link href="/about" className="transition-colors hover:text-ink">
             About

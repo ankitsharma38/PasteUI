@@ -3,231 +3,218 @@ import { categories } from "@/data/designs";
 import DesignCard from "@/components/DesignCard";
 import HeroWorkbench from "@/components/HeroWorkbench";
 import PromptAnatomy from "@/components/PromptAnatomy";
-import { ArrowRight, Layers } from "lucide-react";
+import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Zap, Cpu } from "lucide-react";
 
 export default function Home() {
   const totalDesigns = categories.reduce((acc, c) => acc + c.designs.length, 0);
-  const navItem = categories.find((c) => c.slug === "navbar")?.designs[1];
-  const heroItem = categories.find((c) => c.slug === "hero")?.designs[0];
+  const navItem = categories.find((c) => c.slug === "navbar")?.designs[0];
+  const pricingItem = categories.find((c) => c.slug === "pricing")?.designs[0];
   const statItem = categories.find((c) => c.slug === "card")?.designs[0];
-  const btnItem = categories.find((c) => c.slug === "button")?.designs[0];
+  const shimmerItem = categories.find((c) => c.slug === "button")?.designs[1];
 
   return (
     <div className="flex flex-col pb-24">
-      {/* 1. First Viewport: Focused Header + Interactive Prompt Workbench */}
+      {/* 1. First Viewport: Motive, Vision & Interactive Prompt Workbench */}
       <section className="border-b border-line bg-bg pt-12 pb-16 md:pt-16 md:pb-20">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between mb-10">
             <div className="max-w-2xl">
-              <h1 className="text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl lg:leading-[1.08]">
-                Copy the prompt. Ship the UI.
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-line bg-panel px-3 py-1 text-xs font-mono font-medium text-muted mb-4">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent-text" />
+                <span>The Prompt-First Design System for AI</span>
+              </div>
+              <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl lg:leading-[1.1]">
+                Crafted UI Prompts. <br className="hidden sm:inline" />
+                Production Tailwind Code.
               </h1>
-              <p className="mt-4 text-base sm:text-lg text-muted leading-relaxed">
-                Curated layout prompts and responsive Tailwind CSS components built for AI coding tools. Inspect live states, verify dark mode contrast, and paste directly into Cursor, Claude, or v0.
+              <p className="mt-4 text-sm sm:text-base lg:text-lg text-muted leading-relaxed">
+                Stop debugging hallucinated CSS and broken dark mode contrast. PasteUI gives Cursor, Claude, and v0 pre-tested layout prompts and responsive JSX markup that compile right the first time.
               </p>
             </div>
 
+            {/* Single Action Area (No duplicate buttons) */}
             <div className="flex flex-col items-start lg:items-end gap-3 shrink-0">
               <div className="flex flex-wrap items-center gap-3">
                 <Link
                   href="/components"
-                  className="inline-flex h-11 items-center gap-2 rounded-xl bg-accent px-5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
+                  className="inline-flex h-11 items-center gap-2 rounded-xl bg-accent px-6 text-sm font-semibold text-white transition-all hover:bg-accent-hover hover:shadow-md"
                 >
-                  <Layers size={16} aria-hidden="true" />
-                  <span>Browse All Components</span>
-                </Link>
-                <Link
-                  href="/components/navbar"
-                  className="inline-flex h-11 items-center gap-2 rounded-xl border border-line bg-card px-5 text-sm font-medium text-ink transition-colors hover:border-ink/40 hover:bg-subtle"
-                >
-                  <span>Live Navbars</span>
+                  <Sparkles size={16} aria-hidden="true" />
+                  <span>Explore Library</span>
                   <ArrowRight size={14} aria-hidden="true" />
                 </Link>
+                <a
+                  href="#motive"
+                  className="inline-flex h-11 items-center gap-2 rounded-xl border border-line bg-card px-5 text-sm font-medium text-ink transition-colors hover:border-ink/40 hover:bg-subtle"
+                >
+                  <span>Why Prompt-First?</span>
+                </a>
               </div>
               <p className="font-mono text-xs text-muted tabular-nums">
-                {totalDesigns} interactive patterns across {categories.length} categories
+                {totalDesigns} tested patterns across {categories.length} categories
               </p>
             </div>
           </div>
 
+          {/* Interactive Hero Workbench with responsive tabs and live preview */}
           <HeroWorkbench />
         </div>
       </section>
 
-      {/* 2. Prompt Anatomy & Constraint Engineering */}
-      <section className="border-b border-line bg-panel/40 py-20">
-        <div className="mx-auto max-w-7xl px-6">
+      {/* 2. Motive & Vision: Why AI Coding Needs Deterministic Layout Prompts */}
+      <section id="motive" className="border-b border-line bg-panel/40 py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="max-w-3xl mb-12">
+            <span className="font-mono text-xs font-semibold text-accent-text uppercase tracking-wider">
+              Our Vision & Motive
+            </span>
+            <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-ink">
+              Eliminating the trial-and-error loop in AI web development.
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-muted leading-relaxed max-w-[65ch]">
+              When you prompt an AI with &quot;make a modern navbar&quot;, it guesses breakpoints, uses conflicting margins, ignores mobile viewport bounds, and fails color contrast audits. PasteUI replaces ambiguity with engineered prompt blueprints.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-2xl border border-line bg-card p-6 transition-all hover:border-accent-text/40 hover:shadow-xs">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent-text">
+                <Cpu size={20} aria-hidden="true" />
+              </div>
+              <h3 className="mt-4 font-bold text-base text-ink">Constraint-Engineered Prompts</h3>
+              <p className="mt-2 text-xs sm:text-sm text-muted leading-relaxed">
+                Every prompt specifies explicit max-widths, flex wrapping rules, and focus rings so your AI assistant writes predictable, bug-free components.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-line bg-card p-6 transition-all hover:border-accent-text/40 hover:shadow-xs">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent-text">
+                <Zap size={20} aria-hidden="true" />
+              </div>
+              <h3 className="mt-4 font-bold text-base text-ink">Zero Extra Dependencies</h3>
+              <p className="mt-2 text-xs sm:text-sm text-muted leading-relaxed">
+                Pure standard Tailwind CSS and accessible HTML semantics. No proprietary component library locks, runtime bloat, or brittle packages.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-line bg-card p-6 transition-all hover:border-accent-text/40 hover:shadow-xs">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent-text">
+                <ShieldCheck size={20} aria-hidden="true" />
+              </div>
+              <h3 className="mt-4 font-bold text-base text-ink">A11y & Contrast Tested</h3>
+              <p className="mt-2 text-xs sm:text-sm text-muted leading-relaxed">
+                Every sample passes WCAG 4.5:1 contrast standards in both dark and light modes, with keyboard escape keys, modal traps, and skip links.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Prompt Anatomy: Typical Prompt vs PasteUI Blueprint */}
+      <section className="border-b border-line bg-bg py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <PromptAnatomy />
         </div>
       </section>
 
-      {/* 3. Live Component Showcase */}
-      <section className="border-b border-line py-20">
-        <div className="mx-auto max-w-7xl px-6 space-y-12">
-          {/* Navigation Bar Showcase */}
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-baseline justify-between gap-4">
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  Full-width navigation patterns
-                </h2>
-                <p className="text-sm text-muted mt-1">
-                  Test active pill states, responsive mobile drawers, and viewport widths before copying.
-                </p>
-              </div>
-              <Link
-                href="/components/navbar"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-text hover:underline"
-              >
-                <span>All {categories.find((c) => c.slug === "navbar")?.designs.length} navbars</span>
-                <ArrowRight size={14} aria-hidden="true" />
-              </Link>
-            </div>
-
-            {navItem && <DesignCard design={navItem} forceFullWidth={true} />}
-          </div>
-
-          {/* Hero & Bento Showcase */}
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-baseline justify-between gap-4">
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  Hero headers and metric cards
-                </h2>
-                <p className="text-sm text-muted mt-1">
-                  Switch between rendered output, constraint prompt, and raw Tailwind JSX inside any card.
-                </p>
-              </div>
-              <Link
-                href="/components"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-text hover:underline"
-              >
-                <span>Open full catalog</span>
-                <ArrowRight size={14} aria-hidden="true" />
-              </Link>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              {heroItem && <DesignCard design={heroItem} />}
-              {statItem && <DesignCard design={statItem} />}
-            </div>
-          </div>
-
-          {/* Buttons Matrix */}
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-baseline justify-between gap-4">
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  Buttons and interactive actions
-                </h2>
-                <p className="text-sm text-muted mt-1">
-                  Solid, ink, outline, and ghost action sets with verified contrast and focus states.
-                </p>
-              </div>
-              <Link
-                href="/components/button"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-text hover:underline"
-              >
-                <span>Explore buttons</span>
-                <ArrowRight size={14} aria-hidden="true" />
-              </Link>
-            </div>
-
-            {btnItem && <DesignCard design={btnItem} forceFullWidth={true} />}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Component Directory Index */}
-      <section className="pt-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-wrap items-baseline justify-between gap-4 mb-8">
+      {/* 4. Live Component Samples Showcase */}
+      <section className="border-b border-line py-16 sm:py-20 bg-panel/20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-12">
+          {/* Header */}
+          <div className="flex flex-wrap items-baseline justify-between gap-4">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                Component Directory
+              <span className="font-mono text-xs font-semibold text-accent-text uppercase tracking-wider">
+                Production Samples
+              </span>
+              <h2 className="mt-1 text-2xl sm:text-3xl font-bold tracking-tight text-ink">
+                Ready-to-paste UI patterns
               </h2>
-              <p className="text-sm text-muted mt-1">
-                Jump directly into any category in the sandbox dashboard.
-              </p>
             </div>
             <Link
               href="/components"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-text hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-accent-text hover:underline"
             >
-              <span>Launch sandbox</span>
+              <span>View full library ({totalDesigns})</span>
               <ArrowRight size={14} aria-hidden="true" />
             </Link>
           </div>
 
-          <div className="grid gap-px bg-line border border-line rounded-2xl overflow-hidden sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((c) => {
-              const sampleTags = Array.from(
-                new Set(c.designs.flatMap((d) => d.tags))
-              ).slice(0, 3);
-              return (
-                <Link
-                  key={c.slug}
-                  href={`/components/${c.slug}`}
-                  className="group flex flex-col justify-between bg-card p-6 transition-colors hover:bg-cardHover"
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-3">
-                      <h3 className="text-base font-bold text-ink group-hover:text-accent-text transition-colors">
-                        {c.name}
-                      </h3>
-                      <span className="font-mono text-xs font-medium text-muted tabular-nums">
-                        {c.designs.length} {c.designs.length === 1 ? "layout" : "layouts"}
-                      </span>
-                    </div>
-                    <p className="mt-2.5 text-xs leading-relaxed text-muted">
-                      {c.description}
-                    </p>
-                  </div>
+          {/* Featured Full-Width Navigation */}
+          {navItem && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs font-mono text-muted">
+                <span>Featured specimen: Navigation</span>
+                <span>Responsive & interactive</span>
+              </div>
+              <DesignCard design={navItem} forceFullWidth={true} />
+            </div>
+          )}
 
-                  <div className="mt-6 flex items-center justify-between pt-4 border-t border-line">
-                    <div className="flex flex-wrap gap-1.5">
-                      {sampleTags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded bg-subtle px-2 py-0.5 font-mono text-xs text-muted"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <ArrowRight
-                      size={14}
-                      aria-hidden="true"
-                      className="text-muted group-hover:text-accent-text group-hover:translate-x-0.5 transition-all"
-                    />
-                  </div>
-                </Link>
-              );
-            })}
+          {/* Grid of Highlighted Specimens */}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {pricingItem && <DesignCard design={pricingItem} />}
+            {statItem && <DesignCard design={statItem} />}
+            {shimmerItem && <DesignCard design={shimmerItem} />}
+          </div>
+        </div>
+      </section>
 
-            {/* Last tile: Request or Browse All */}
+      {/* 5. 3-Step Workflow: How It Works */}
+      <section className="border-b border-line py-16 sm:py-20 bg-bg">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="font-mono text-xs font-semibold text-accent-text uppercase tracking-wider">
+              Simple Workflow
+            </span>
+            <h2 className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight text-ink">
+              Three steps from prompt to shipped interface
+            </h2>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-xl border border-line bg-card p-6 text-left">
+              <div className="font-mono text-xs font-bold text-accent-text">STEP 01</div>
+              <h3 className="mt-3 font-semibold text-base text-ink">Select a Verified Pattern</h3>
+              <p className="mt-2 text-xs sm:text-sm text-muted leading-relaxed">
+                Browse navbars, heroes, pricing tables, cards, and buttons with interactive state previews.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-line bg-card p-6 text-left">
+              <div className="font-mono text-xs font-bold text-accent-text">STEP 02</div>
+              <h3 className="mt-3 font-semibold text-base text-ink">Copy Prompt or Direct JSX</h3>
+              <p className="mt-2 text-xs sm:text-sm text-muted leading-relaxed">
+                Copy the natural language layout prompt to steer Cursor/Claude, or copy pure Tailwind JSX.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-line bg-card p-6 text-left">
+              <div className="font-mono text-xs font-bold text-accent-text">STEP 03</div>
+              <h3 className="mt-3 font-semibold text-base text-ink">Paste and Ship Instantly</h3>
+              <p className="mt-2 text-xs sm:text-sm text-muted leading-relaxed">
+                Watch your AI assistant generate precise, fully accessible, dark-mode ready code without edits.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Ready to Ship Callout Banner */}
+      <section className="py-16 sm:py-20 bg-panel/30">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-ink">
+            Build clean, accessible interfaces with AI today.
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-muted max-w-xl mx-auto">
+            Explore {totalDesigns} responsive, tested UI patterns and start generating production code with confidence.
+          </p>
+          <div className="mt-6 flex justify-center">
             <Link
-              href="/contact"
-              className="group flex flex-col justify-between bg-panel p-6 transition-colors hover:bg-subtle"
+              href="/components"
+              className="inline-flex h-11 items-center gap-2 rounded-xl bg-accent px-6 text-sm font-semibold text-white transition-all hover:bg-accent-hover hover:shadow-md"
             >
-              <div>
-                <h3 className="text-base font-bold text-ink group-hover:text-accent-text transition-colors">
-                  Request a Pattern
-                </h3>
-                <p className="mt-2.5 text-xs leading-relaxed text-muted">
-                  Need a specific layout prompt—pricing grids, command palettes, or multi-step forms? Send a request.
-                </p>
-              </div>
-              <div className="mt-6 flex items-center justify-between pt-4 border-t border-line">
-                <span className="text-xs font-semibold text-accent-text">
-                  Suggest a component
-                </span>
-                <ArrowRight
-                  size={14}
-                  aria-hidden="true"
-                  className="text-accent-text group-hover:translate-x-0.5 transition-transform"
-                />
-              </div>
+              <Sparkles size={16} aria-hidden="true" />
+              <span>Explore All {totalDesigns} Components</span>
             </Link>
           </div>
         </div>

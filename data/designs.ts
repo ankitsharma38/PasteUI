@@ -15,7 +15,8 @@ export type Category = {
   designs: Design[];
 };
 
-const BASE_RULE = "Build with React and Tailwind CSS. Modern, fully responsive, keyboard accessible with visible focus rings, and clean design hierarchy.";
+const BASE_RULE =
+  "Build with React and Tailwind CSS. Modern, fully responsive, keyboard accessible with visible focus rings, and clean design hierarchy.";
 
 const d = (
   id: string,
@@ -39,7 +40,8 @@ export const categories: Category[] = [
   {
     slug: "navbar",
     name: "Navbar",
-    description: "Full-width navigation bars, floating pills, centered logos, and mobile-ready drawers.",
+    description:
+      "Full-width navigation bars, floating pills, centered logos, and mobile-ready drawers.",
     designs: [
       d(
         "nav-sticky-top",
@@ -145,7 +147,8 @@ export const categories: Category[] = [
   {
     slug: "hero",
     name: "Hero Section",
-    description: "High-converting hero layouts, split screens, interactive previews, and centered headlines.",
+    description:
+      "High-converting hero layouts, split screens, interactive previews, and centered headlines.",
     designs: [
       d(
         "hero-left",
@@ -228,7 +231,7 @@ export const categories: Category[] = [
         `<section className="w-full py-16 px-6 text-center">
   <div className="mx-auto max-w-3xl">
     <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-800/60 px-4 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-6">
-      <span>✨ PasteUI Release v1.0</span>
+      <span>✨ PasteUI Release v2.0</span>
       <span className="text-emerald-500">→</span>
     </div>
     <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100">
@@ -245,12 +248,90 @@ export const categories: Category[] = [
   </div>
 </section>`
       ),
+      d(
+        "hero-terminal",
+        "Developer CLI Launch Hero",
+        "Terminal-inspired hero layout with simulated bash prompt, 1-click command copy, and feature proof pills.",
+        ["terminal", "developer", "cli", "interactive"],
+        "Create a developer-focused CLI hero section. Top eyebrow pill with monospace status. High-contrast bold headline 'Code the frontend with deterministic prompts'. Below the copy, embed an interactive terminal window with copyable install command, simulated terminal output, and quick action tags.",
+        `<section className="w-full py-12 px-6">
+  <div className="mx-auto max-w-4xl text-center">
+    <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-100 px-3 py-1 font-mono text-xs text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 mb-4">
+      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+      <span>v2.1 · CLI & AI prompt templates</span>
+    </div>
+    <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-6xl dark:text-zinc-100">
+      Developer studio for <span className="text-emerald-600 dark:text-emerald-400">AI prompts</span>
+    </h1>
+    <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-600 dark:text-zinc-400">
+      Stop fixing hallucinated CSS. Copy deterministic prompts engineered with exact layout constraints and accessible states.
+    </p>
+  </div>
+</section>`
+      ),
+    ],
+  },
+  {
+    slug: "pricing",
+    name: "Pricing",
+    description:
+      "Modern tier matrices, interactive billing toggles, feature checklists, and highlighted popular plans.",
+    designs: [
+      d(
+        "pricing-tier",
+        "Interactive Tier Card with Billing Toggle",
+        "SaaS pricing tier card with monthly/annual toggle, savings badge, feature checklist, and prominent CTA.",
+        ["pricing", "toggle", "saas", "interactive"],
+        "Create an interactive SaaS pricing tier card with a monthly vs annual toggle button. Include a price display with tabular numbers, 'Billed annually - save 20%' chip, 4-item feature checklist with emerald checkmarks, and a solid CTA button with hover micro-interaction.",
+        `<div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+  <div className="flex items-center justify-between">
+    <div>
+      <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Pro Developer</h3>
+      <p className="text-xs text-zinc-500 dark:text-zinc-400">For teams building with AI coders</p>
+    </div>
+    <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">Popular</span>
+  </div>
+  <div className="mt-4 flex items-baseline gap-1">
+    <span className="text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100">$29</span>
+    <span className="text-xs text-zinc-500 dark:text-zinc-400">/ user / month</span>
+  </div>
+  <ul className="mt-6 space-y-2.5 text-xs text-zinc-600 dark:text-zinc-300">
+    <li className="flex items-center gap-2"><span className="text-emerald-600">✓</span> Unlimited prompt copying</li>
+    <li className="flex items-center gap-2"><span className="text-emerald-600">✓</span> Full Tailwind JSX source</li>
+    <li className="flex items-center gap-2"><span className="text-emerald-600">✓</span> Dark & light mode verified</li>
+    <li className="flex items-center gap-2"><span className="text-emerald-600">✓</span> Cursor & Claude rules integration</li>
+  </ul>
+  <button className="mt-6 w-full rounded-xl bg-emerald-600 py-2.5 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors">Start 14-day trial</button>
+</div>`
+      ),
+      d(
+        "pricing-comparison",
+        "Minimalist Starter vs Pro Duo",
+        "Two-tier side-by-side pricing layout with free tier and highlighted pro tier.",
+        ["pricing", "duo", "minimal"],
+        "Create a two-card pricing comparison: a free starter plan with outline border and a highlighted Pro plan with dark/emerald background, contrasting buttons, and clear usage limits.",
+        `<div className="grid gap-4 sm:grid-cols-2 w-full max-w-2xl">
+  <div className="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+    <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Community</p>
+    <p className="mt-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">$0</p>
+    <p className="mt-1 text-xs text-zinc-500">Free forever for personal projects</p>
+    <button className="mt-4 w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 text-xs font-medium text-zinc-800 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200">Get Started</button>
+  </div>
+  <div className="rounded-xl border border-emerald-500 bg-emerald-950/20 p-5 dark:bg-emerald-950/40">
+    <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">Team Plan</p>
+    <p className="mt-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">$49</p>
+    <p className="mt-1 text-xs text-zinc-500">Unlimited seats & full prompt repo</p>
+    <button className="mt-4 w-full rounded-lg bg-emerald-600 py-2 text-xs font-semibold text-white hover:bg-emerald-700">Upgrade Now</button>
+  </div>
+</div>`
+      ),
     ],
   },
   {
     slug: "card",
     name: "Cards & Bento",
-    description: "Stat cards, feature bento boxes, user profiles, and interactive cards.",
+    description:
+      "Stat cards, feature bento boxes, user profiles, and interactive cards.",
     designs: [
       d(
         "card-stat",
@@ -270,6 +351,24 @@ export const categories: Category[] = [
 </div>`
       ),
       d(
+        "card-bento",
+        "Interactive 3-Tile Bento Grid",
+        "Asymmetrical bento grid specimen with live stat pill, code chip, and feature spotlight tile.",
+        ["bento", "grid", "modern", "interactive"],
+        "Create an interactive bento grid component with 3 tiles: Tile 1: primary feature with live pulsing status indicator. Tile 2: compact speed score stat with circular progress. Tile 3: syntax code block with click-to-copy.",
+        `<div className="grid gap-3 sm:grid-cols-3 w-full max-w-2xl">
+  <div className="sm:col-span-2 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+    <span className="text-xs font-mono font-semibold text-emerald-600">01 / SPEED</span>
+    <h4 className="mt-2 text-base font-bold text-zinc-900 dark:text-zinc-100">Zero Runtime Overhead</h4>
+    <p className="mt-1 text-xs text-zinc-500 leading-relaxed">Pure Tailwind utilities compile to minimal CSS.</p>
+  </div>
+  <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-800/50">
+    <span className="text-2xl font-bold font-mono text-emerald-600">0ms</span>
+    <p className="mt-1 text-xs text-zinc-500">Layout shift score</p>
+  </div>
+</div>`
+      ),
+      d(
         "card-basic",
         "Feature Value Card",
         "Icon tile, clean heading, paragraph description, and hover border highlight.",
@@ -285,6 +384,26 @@ export const categories: Category[] = [
   </p>
   <div className="mt-4 flex items-center text-xs font-semibold text-emerald-600 dark:text-emerald-400 group-hover:underline">
     Learn more →
+  </div>
+</div>`
+      ),
+      d(
+        "card-testimonial",
+        "Social Proof Customer Quote Card",
+        "Customer testimonial card with 5-star rating, quote prose, user avatar, and verified company tag.",
+        ["testimonial", "social-proof", "rating"],
+        "Create a verified customer quote card: 5 star rating icons, authentic customer quote under 100 characters, author name, job role, and verified company badge.",
+        `<div className="w-full max-w-sm rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+  <div className="flex text-amber-400 text-xs gap-1">★★★★★</div>
+  <p className="mt-3 text-xs leading-relaxed text-zinc-700 dark:text-zinc-300">
+    &quot;PasteUI cut our Cursor prompt iteration time in half. Components actually render cleanly on the first try.&quot;
+  </p>
+  <div className="mt-4 flex items-center gap-3 border-t border-zinc-100 pt-3 dark:border-zinc-800">
+    <div className="h-8 w-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">JD</div>
+    <div>
+      <p className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">Jane Doe</p>
+      <p className="text-[10px] text-zinc-500">Staff Frontend Engineer</p>
+    </div>
   </div>
 </div>`
       ),
@@ -311,7 +430,8 @@ export const categories: Category[] = [
   {
     slug: "button",
     name: "Buttons & CTAs",
-    description: "Solid, outline, ghost, loading spinners, and pill button states.",
+    description:
+      "Solid, outline, ghost, animated shimmer, magnetic action, and pill button states.",
     designs: [
       d(
         "btn-set",
@@ -324,6 +444,21 @@ export const categories: Category[] = [
   <button className="rounded-xl bg-zinc-900 dark:bg-zinc-100 px-5 py-2.5 text-sm font-semibold text-white dark:text-zinc-900 hover:opacity-90 transition-opacity">Dark Ink</button>
   <button className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-transparent px-5 py-2.5 text-sm font-semibold text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">Outline</button>
   <button className="rounded-xl px-5 py-2.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">Ghost</button>
+</div>`
+      ),
+      d(
+        "btn-shimmer",
+        "Animated Shimmer Glow Button",
+        "High-taste button with subtle passing light gradient shimmer and smooth hover scale.",
+        ["shimmer", "animation", "framer", "micro-interaction"],
+        "Create an animated shimmer CTA button: dark backdrop with an emerald-hued border, subtle sweeping light reflection gradient, white semibold text, and smooth hover scale micro-animation.",
+        `<div className="p-4 flex items-center justify-center">
+  <button className="relative inline-flex h-11 overflow-hidden rounded-xl p-[1px] focus:outline-none focus:ring-2 focus:ring-emerald-400">
+    <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#047857_0%,#34d399_50%,#047857_100%)]" />
+    <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-xl bg-zinc-950 px-6 py-1 text-xs font-semibold text-zinc-100 backdrop-blur-3xl hover:bg-zinc-900 transition-colors">
+      Generate UI Component ⚡
+    </span>
+  </button>
 </div>`
       ),
       d(
@@ -358,9 +493,94 @@ export const categories: Category[] = [
     ],
   },
   {
+    slug: "modal",
+    name: "Modals & Dialogs",
+    description:
+      "Accessible command palettes (⌘K), alert dialogs, confirmation prompts, and slide-in panels.",
+    designs: [
+      d(
+        "dialog-command",
+        "Interactive Command Palette (⌘K)",
+        "Keyboard-driven search dialog with category sections, instant filter, and keyboard shortcuts.",
+        ["modal", "command", "keyboard", "dialog"],
+        "Create an accessible Command Palette (⌘K) dialog. Dark/light backdrop with backdrop-blur, search input at top with magnifying glass, section headings ('Components', 'Navigation', 'Actions'), keyboard navigation highlights, and footer shortcut legend.",
+        `<div className="w-full max-w-lg rounded-2xl border border-zinc-200 bg-white shadow-2xl overflow-hidden dark:border-zinc-800 dark:bg-zinc-900">
+  <div className="flex items-center border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
+    <span className="text-zinc-400 mr-2.5 text-sm">🔍</span>
+    <input type="text" placeholder="Type a command or search UI..." className="w-full bg-transparent text-sm text-zinc-900 outline-none placeholder:text-zinc-400 dark:text-zinc-100" />
+    <span className="rounded border border-zinc-200 bg-zinc-100 px-1.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:border-zinc-700 dark:bg-zinc-800">ESC</span>
+  </div>
+  <div className="p-2 space-y-1 text-xs">
+    <div className="px-2 py-1 text-[10px] font-semibold text-zinc-400 uppercase">Recent Components</div>
+    <div className="flex items-center justify-between rounded-lg bg-emerald-500/10 px-3 py-2 text-emerald-700 dark:text-emerald-300">
+      <span>Sticky Top Nav</span>
+      <span className="font-mono text-[10px]">↵</span>
+    </div>
+    <div className="flex items-center justify-between rounded-lg px-3 py-2 text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800">
+      <span>Interactive Pricing Tier</span>
+      <span className="font-mono text-[10px]">↵</span>
+    </div>
+  </div>
+</div>`
+      ),
+    ],
+  },
+  {
+    slug: "footer",
+    name: "Footers",
+    description:
+      "Multi-column SaaS footers, minimalist developer bars, newsletter inputs, and status badges.",
+    designs: [
+      d(
+        "footer-columns",
+        "Multi-Column Developer Footer",
+        "Comprehensive 4-column footer with brand statement, links, newsletter form, and system status indicator.",
+        ["footer", "links", "newsletter", "columns"],
+        "Create a comprehensive 4-column footer: Column 1 holds brand mark, tagline, and green operational status badge. Columns 2 and 3 hold product and resource links. Column 4 holds a compact newsletter signup form.",
+        `<footer className="w-full border-t border-zinc-200 bg-zinc-50 py-12 px-6 dark:border-zinc-800 dark:bg-zinc-950">
+  <div className="mx-auto max-w-6xl grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <span className="font-bold text-zinc-900 dark:text-zinc-100">PasteUI</span>
+      <p className="mt-2 text-xs text-zinc-500 leading-relaxed">Prompt-first UI patterns and verified Tailwind JSX.</p>
+      <div className="mt-4 flex items-center gap-1.5 text-xs text-emerald-600 font-medium">
+        <span className="h-2 w-2 rounded-full bg-emerald-500" />
+        All systems operational
+      </div>
+    </div>
+    <div>
+      <p className="text-xs font-semibold text-zinc-900 uppercase dark:text-zinc-100">Library</p>
+      <ul className="mt-3 space-y-2 text-xs text-zinc-500">
+        <li><a href="#" className="hover:text-zinc-900 dark:hover:text-zinc-100">Navbars</a></li>
+        <li><a href="#" className="hover:text-zinc-900 dark:hover:text-zinc-100">Hero Sections</a></li>
+        <li><a href="#" className="hover:text-zinc-900 dark:hover:text-zinc-100">Pricing Tables</a></li>
+      </ul>
+    </div>
+    <div>
+      <p className="text-xs font-semibold text-zinc-900 uppercase dark:text-zinc-100">Ecosystem</p>
+      <ul className="mt-3 space-y-2 text-xs text-zinc-500">
+        <li><a href="#" className="hover:text-zinc-900 dark:hover:text-zinc-100">Cursor Rules</a></li>
+        <li><a href="#" className="hover:text-zinc-900 dark:hover:text-zinc-100">Claude Prompting</a></li>
+        <li><a href="#" className="hover:text-zinc-900 dark:hover:text-zinc-100">Tailwind 3 & 4</a></li>
+      </ul>
+    </div>
+    <div>
+      <p className="text-xs font-semibold text-zinc-900 uppercase dark:text-zinc-100">Stay Updated</p>
+      <p className="mt-1 text-xs text-zinc-500">Get new prompts every Friday.</p>
+      <div className="mt-3 flex gap-1.5">
+        <input type="email" placeholder="you@domain.com" className="w-full rounded-lg border border-zinc-200 px-2.5 py-1.5 text-xs dark:border-zinc-700 dark:bg-zinc-900" />
+        <button className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white">Join</button>
+      </div>
+    </div>
+  </div>
+</footer>`
+      ),
+    ],
+  },
+  {
     slug: "typography",
     name: "Typography",
-    description: "Serif pairing, grotesk bold headings, and monospace technical codes.",
+    description:
+      "Serif pairing, grotesk bold headings, and monospace technical codes.",
     designs: [
       d(
         "type-serif",

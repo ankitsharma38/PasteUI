@@ -1,18 +1,27 @@
 "use client";
 import { useState } from "react";
 import { Check, Copy, Code2, Eye, Laptop, Smartphone, Terminal } from "lucide-react";
+import { motion } from "framer-motion";
 import { categories } from "@/data/designs";
 import { previews } from "@/components/previews";
 
-const PRESET_IDS = ["nav-sticky-top", "hero-split", "card-stat", "type-mono"] as const;
+const PRESET_CONFIGS = [
+  { id: "nav-sticky-top", shortTitle: "Sticky Nav" },
+  { id: "hero-split", shortTitle: "Split Hero" },
+  { id: "pricing-tier", shortTitle: "Pricing Tier" },
+  { id: "card-bento", shortTitle: "Bento Box" },
+  { id: "type-mono", shortTitle: "CLI Spec" },
+] as const;
 
 export default function HeroWorkbench() {
   const allDesigns = categories.flatMap((c) =>
     c.designs.map((d) => ({ ...d, categoryName: c.name, categorySlug: c.slug }))
   );
-  const presets = PRESET_IDS.map((id) => allDesigns.find((d) => d.id === id)).filter(
-    (d): d is NonNullable<typeof d> => Boolean(d)
-  );
+
+  const presets = PRESET_CONFIGS.map((config) => {
+    const item = allDesigns.find((d) => d.id === config.id);
+    return item ? { ...item, shortTitle: config.shortTitle } : null;
+  }).filter((d): d is NonNullable<typeof d> => Boolean(d));
 
   const [selectedId, setSelectedId] = useState<string>(presets[0]?.id ?? "nav-sticky-top");
   const [stageMode, setStageMode] = useState<"preview" | "code">("preview");
@@ -43,12 +52,12 @@ export default function HeroWorkbench() {
   return (
     <div className="animate-surface-reveal rounded-2xl border border-line bg-card overflow-hidden">
       {/* Top Studio Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-panel px-4 sm:px-5 py-3">
-        {/* Component Preset Switcher */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-line bg-panel px-4 sm:px-5 py-2.5">
+        {/* Component Preset Switcher with smooth scroll & layoutId pill */}
         <div
           role="tablist"
           aria-label="Workbench component presets"
-          className="flex flex-wrap items-center gap-1.5"
+          className="flex items-center gap-1 overflow-x-auto studio-scroll py-0.5"
         >
           {presets.map((preset) => {
             const isSelected = preset.id === active.id;
@@ -59,27 +68,32 @@ export default function HeroWorkbench() {
                 aria-selected={isSelected}
                 key={preset.id}
                 onClick={() => setSelectedId(preset.id)}
-                className={`cursor-pointer rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
-                  isSelected
-                    ? "bg-card text-ink font-semibold border border-line"
-                    : "text-muted hover:text-ink hover:bg-subtle/60 border border-transparent"
+                className={`relative cursor-pointer rounded-lg px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-colors ${
+                  isSelected ? "text-ink font-semibold" : "text-muted hover:text-ink hover:bg-subtle/60"
                 }`}
               >
-                {preset.title.replace(" with Mobile Drawer", "")}
+                {isSelected && (
+                  <motion.span
+                    layoutId="heroTabIndicator"
+                    className="absolute inset-0 rounded-lg bg-card border border-line shadow-xs"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.3 }}
+                  />
+                )}
+                <span className="relative z-10">{preset.shortTitle}</span>
               </button>
             );
           })}
         </div>
 
         {/* Stage Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-end gap-2 shrink-0">
           <div className="flex items-center rounded-lg border border-line bg-bg p-0.5 text-xs">
             <button
               type="button"
               onClick={() => setStageMode("preview")}
               className={`cursor-pointer flex items-center gap-1 rounded-md px-2.5 py-1 text-xs transition-colors ${
                 stageMode === "preview"
-                  ? "bg-card text-ink font-semibold"
+                  ? "bg-card text-ink font-semibold shadow-xs"
                   : "text-muted hover:text-ink"
               }`}
             >
@@ -92,7 +106,7 @@ export default function HeroWorkbench() {
                 onClick={() => setStageMode("code")}
                 className={`cursor-pointer flex items-center gap-1 rounded-md px-2.5 py-1 text-xs transition-colors ${
                   stageMode === "code"
-                    ? "bg-card text-ink font-semibold"
+                    ? "bg-card text-ink font-semibold shadow-xs"
                     : "text-muted hover:text-ink"
                 }`}
               >
@@ -134,7 +148,7 @@ export default function HeroWorkbench() {
       {/* Split Studio Body: Prompt Spec (Left) + Live Preview/Code Stage (Right) */}
       <div className="grid lg:grid-cols-12">
         {/* Left: Prompt Blueprint Pane */}
-        <div className="lg:col-span-5 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-line bg-card p-5">
+        <div className="lg:col-span-5 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-line bg-card p-4 sm:p-5">
           <div>
             <div className="flex items-center justify-between gap-2 pb-3 border-b border-line">
               <div className="flex items-center gap-2 text-xs font-mono font-medium text-muted">
@@ -146,14 +160,14 @@ export default function HeroWorkbench() {
               </span>
             </div>
 
-            <p className="mt-4 font-mono text-xs leading-relaxed text-ink whitespace-pre-wrap">
+            <p className="mt-3.5 font-mono text-xs leading-relaxed text-ink whitespace-pre-wrap">
               {active.prompt}
             </p>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-line flex flex-wrap items-center justify-between gap-2">
+          <div className="mt-5 pt-3.5 border-t border-line flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-1.5">
-              {active.tags.slice(0, 3).map((tag) => (
+              {active.tags.slice(0, 2).map((tag) => (
                 <span
                   key={tag}
                   className="rounded bg-subtle px-2 py-0.5 font-mono text-xs text-muted"
@@ -175,12 +189,14 @@ export default function HeroWorkbench() {
                   ) : (
                     <Code2 size={12} aria-hidden="true" />
                   )}
-                  <span>{copiedCode ? "Copied JSX" : "JSX"}</span>
+                  <span>{copiedCode ? "Copied" : "JSX"}</span>
                 </button>
               )}
 
-              <button
+              <motion.button
                 type="button"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={copyPrompt}
                 className="cursor-pointer inline-flex h-8 items-center gap-1.5 rounded-lg bg-accent px-3 text-xs font-semibold text-white hover:bg-accent-hover transition-colors"
               >
@@ -190,20 +206,20 @@ export default function HeroWorkbench() {
                   <Copy size={13} aria-hidden="true" />
                 )}
                 <span>{copiedPrompt ? "Copied prompt" : "Copy prompt"}</span>
-              </button>
+              </motion.button>
             </div>
           </div>
         </div>
 
         {/* Right: Interactive Render Stage */}
-        <div className="lg:col-span-7 flex flex-col justify-between workbench-grid bg-bg p-5 sm:p-8 min-h-[300px]">
-          <div className="flex-1 flex items-center justify-center">
+        <div className="lg:col-span-7 flex flex-col justify-between workbench-grid bg-bg p-4 sm:p-8 min-h-[320px] overflow-hidden">
+          <div className="flex-1 flex items-center justify-center w-full max-w-full overflow-x-auto studio-scroll py-2">
             {stageMode === "preview" ? (
               <div
-                className={`transition-all duration-200 flex items-center justify-center ${
+                className={`transition-all duration-200 flex items-center justify-center w-full ${
                   viewport === "mobile"
-                    ? "w-full max-w-[360px] rounded-2xl border border-line bg-panel p-2.5"
-                    : "w-full"
+                    ? "max-w-[340px] rounded-2xl border border-line bg-panel p-2 shadow-sm"
+                    : "max-w-full"
                 }`}
               >
                 {previews[active.id]}
@@ -217,8 +233,8 @@ export default function HeroWorkbench() {
             )}
           </div>
 
-          <div className="mt-4 flex items-center justify-between text-xs font-mono text-muted">
-            <span>Interactive preview · {viewport === "mobile" ? "360px frame" : "Fluid container"}</span>
+          <div className="mt-3 flex items-center justify-between text-xs font-mono text-muted">
+            <span>Interactive preview · {viewport === "mobile" ? "340px frame" : "Fluid container"}</span>
             <span>Dark & light verified</span>
           </div>
         </div>
@@ -226,4 +242,3 @@ export default function HeroWorkbench() {
     </div>
   );
 }
-

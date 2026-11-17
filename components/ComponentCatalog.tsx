@@ -2,6 +2,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { ArrowRight, Search, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { categories } from "@/data/designs";
 import DesignGrid from "@/components/DesignGrid";
 
@@ -14,12 +15,16 @@ export default function ComponentCatalog() {
   const filteredDesigns = useMemo(() => {
     if (!normalizedQuery) return [];
     return categories.flatMap((c) =>
-      c.designs.filter(
+      c.designs.map((d) => ({
+        ...d,
+        categorySlug: c.slug,
+        categoryName: c.name,
+      })).filter(
         (d) =>
           d.title.toLowerCase().includes(normalizedQuery) ||
           d.description.toLowerCase().includes(normalizedQuery) ||
           d.tags.some((t) => t.toLowerCase().includes(normalizedQuery)) ||
-          c.name.toLowerCase().includes(normalizedQuery)
+          d.categoryName.toLowerCase().includes(normalizedQuery)
       )
     );
   }, [normalizedQuery]);
@@ -31,10 +36,10 @@ export default function ComponentCatalog() {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
-              Components
+              Component Library
             </h1>
             <p className="mt-1 text-sm text-muted">
-              Select a category or search across {totalDesigns} prompt-ready components.
+              Explore {totalDesigns} prompt-tested components across {categories.length} categories.
             </p>
           </div>
 
@@ -48,7 +53,7 @@ export default function ComponentCatalog() {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search navbars, bento, pill, hero..."
+              placeholder="Search navbars, pricing, bento, hero..."
               aria-label="Search components"
               className="h-10 w-full rounded-xl border border-line bg-card pl-9 pr-9 text-sm text-ink placeholder:text-muted focus:border-accent-text focus:outline-none transition-colors"
             />
@@ -86,9 +91,9 @@ export default function ComponentCatalog() {
             <DesignGrid designs={filteredDesigns} />
           ) : (
             <div className="rounded-xl border border-line bg-card p-10 text-center">
-              <p className="text-sm font-semibold text-ink">No matching components</p>
+              <p className="text-sm font-semibold text-ink">No matching components found</p>
               <p className="mt-1 text-xs text-muted">
-                Try searching for &quot;sticky&quot;, &quot;hero&quot;, &quot;revenue&quot;, or &quot;pill&quot;.
+                Try searching for &quot;navbar&quot;, &quot;pricing&quot;, &quot;stat&quot;, &quot;pill&quot;, or &quot;hero&quot;.
               </p>
               <button
                 type="button"
@@ -101,50 +106,31 @@ export default function ComponentCatalog() {
           )}
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="space-y-12">
           {categories.map((c) => {
-            const sampleTags = Array.from(
-              new Set(c.designs.flatMap((d) => d.tags))
-            ).slice(0, 3);
+            const isNavbar = c.slug === "navbar";
             return (
-              <Link
-                key={c.slug}
-                href={`/components/${c.slug}`}
-                className="group flex flex-col justify-between rounded-xl border border-line bg-card p-5 transition-colors hover:border-ink/40 hover:bg-cardHover"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2">
-                    <h2 className="font-semibold text-base text-ink group-hover:text-accent-text transition-colors">
-                      {c.name}
-                    </h2>
-                    <span className="font-mono text-xs text-muted tabular-nums">
-                      {c.designs.length}
-                    </span>
+              <section key={c.slug} className="space-y-4">
+                <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-3">
+                  <div>
+                    <h2 className="text-lg font-bold text-ink sm:text-xl">{c.name}</h2>
+                    <p className="text-xs text-muted mt-0.5">{c.description}</p>
                   </div>
-                  <p className="mt-2 text-xs leading-relaxed text-muted">{c.description}</p>
+                  <Link
+                    href={`/components/${c.slug}`}
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-accent-text hover:underline"
+                  >
+                    <span>View all ({c.designs.length})</span>
+                    <ArrowRight size={13} aria-hidden="true" />
+                  </Link>
                 </div>
 
-                <div className="mt-5 flex items-center justify-between border-t border-line pt-3.5">
-                  <div className="flex flex-wrap gap-1.5">
-                    {sampleTags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded bg-subtle px-2 py-0.5 font-mono text-xs text-muted"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <span className="inline-flex items-center gap-1 text-xs font-medium text-muted group-hover:text-ink transition-colors">
-                    <span>Open</span>
-                    <ArrowRight
-                      size={12}
-                      aria-hidden="true"
-                      className="transition-transform group-hover:translate-x-0.5"
-                    />
-                  </span>
-                </div>
-              </Link>
+                <DesignGrid
+                  designs={c.designs}
+                  isNavbarCategory={isNavbar}
+                  headingLevel="h3"
+                />
+              </section>
             );
           })}
         </div>
@@ -152,4 +138,3 @@ export default function ComponentCatalog() {
     </div>
   );
 }
-
